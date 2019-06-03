@@ -1,0 +1,1601 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>接口测试报告</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    
+<style type="text/css" media="screen">
+body        { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px; font-size: 120%; }
+table       { font-size: 100%; }
+/* -- heading ---------------------------------------------------------------------- */
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+/* -- report ------------------------------------------------------------------------ */
+#total_row  { font-weight: bold; }
+.passCase   { color: #5cb85c; }
+.failCase   { color: #d9534f; font-weight: bold; }
+.errorCase  { color: #f0ad4e; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+</style>
+
+</head>
+<body >
+<script language="javascript" type="text/javascript">
+output_list = Array();
+/*level 调整增加只显示通过用例的分类 --Findyou
+0:Summary //all hiddenRow
+1:Failed  //pt hiddenRow, ft none
+2:Pass    //pt none, ft hiddenRow
+3:All     //pt none, ft none
+*/
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level == 2 || level == 0 ) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level < 2) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+    }
+    //加入【详细】切换文字变化 --Findyou
+    detail_class=document.getElementsByClassName('detail');
+	//console.log(detail_class.length)
+	if (level == 3) {
+		for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="收起"
+		}
+	}
+	else{
+			for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="详细"
+		}
+	}
+}
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        //ID修改 点 为 下划线 -Findyou
+        tid0 = 't' + cid.substr(1) + '_' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        //修改点击无法收起的BUG，加入【详细】切换文字变化 --Findyou
+        if (toHide) {
+            document.getElementById(tid).className = 'hiddenRow';
+            document.getElementById(cid).innerText = "详细"
+        }
+        else {
+            document.getElementById(tid).className = '';
+            document.getElementById(cid).innerText = "收起"
+        }
+    }
+}
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+</script>
+<div class='heading'>
+<h1 style="font-family: Microsoft YaHei">接口测试报告</h1>
+<p class='attribute'><strong>测试人员 : </strong> 妖嗜</p>
+<p class='attribute'><strong>开始时间 : </strong> 2019-04-02 11:42:32</p>
+<p class='attribute'><strong>合计耗时 : </strong> 0:00:11.655610</p>
+<p class='attribute'><strong>测试结果 : </strong> 共 53，通过 51，失败 2，通过率= 96.23%</p>
+
+<p class='description'>接口报告</p>
+</div>
+
+
+<p id='show_detail_line'>
+<a class="btn btn-primary" href='javascript:showCase(0)'>概要{ 96.23% }</a>
+<a class="btn btn-danger" href='javascript:showCase(1)'>失败{ 2 }</a>
+<a class="btn btn-success" href='javascript:showCase(2)'>通过{ 51 }</a>
+<a class="btn btn-info" href='javascript:showCase(3)'>所有{ 53 }</a>
+</p>
+<table id='result_table' class="table table-condensed table-bordered table-hover">
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 16px;">
+    <td>用例集/测试用例</td>
+    <td>总计</td>
+    <td>通过</td>
+    <td>失败</td>
+    <td>错误</td>
+    <td>详细</td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_case.test_register.Test_Register</td>
+    <td class="text-center">9</td>
+    <td class="text-center">9</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c1',9)" class="detail" id='c1'>详细</a></td>
+</tr>
+
+<tr id='pt1_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_1_密码为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_1'>通过</button>
+    <div id='div_pt1_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_1'>通过</button>
+    <div id='div_pt1_1' class="collapse in" align="left">
+    <pre>
+    
+pt1_1: [2019-04-02 11:42:32,310]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:32,392]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行注册模块 密码为空，第1条用例
+[2019-04-02 11:42:32,393]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status': 0, 'code': '20103', 'data': None, 'msg': '密码不能为空'}
+[2019-04-02 11:42:32,393]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20103', 'data': None, 'msg': '密码不能为空'}
+[2019-04-02 11:42:32,393]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:用例通过
+[2019-04-02 11:42:32,437]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:32,484]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:32,485]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_2_手机号为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_2'>通过</button>
+    <div id='div_pt1_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_2'>通过</button>
+    <div id='div_pt1_2' class="collapse in" align="left">
+    <pre>
+    
+pt1_2: [2019-04-02 11:42:32,486]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:32,558]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行注册模块 手机号为空，第2条用例
+[2019-04-02 11:42:32,558]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status': 0, 'code': '20103', 'data': None, 'msg': '手机号不能为空'}
+[2019-04-02 11:42:32,559]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20103', 'data': None, 'msg': '手机号不能为空'}
+[2019-04-02 11:42:32,559]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:用例通过
+[2019-04-02 11:42:32,603]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:32,644]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:32,644]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_3_密码长度为19位</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_3'>通过</button>
+    <div id='div_pt1_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_3'>通过</button>
+    <div id='div_pt1_3' class="collapse in" align="left">
+    <pre>
+    
+pt1_3: [2019-04-02 11:42:32,645]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:32,719]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行注册模块 密码长度为19位，第3条用例
+[2019-04-02 11:42:32,720]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status': 0, 'code': '20108', 'data': None, 'msg': '密码长度必须为6~18'}
+[2019-04-02 11:42:32,720]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20108', 'data': None, 'msg': '密码长度必须为6~18'}
+[2019-04-02 11:42:32,720]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:用例通过
+[2019-04-02 11:42:32,762]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:32,804]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:32,805]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_4_密码长度为5位</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_4'>通过</button>
+    <div id='div_pt1_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_4'>通过</button>
+    <div id='div_pt1_4' class="collapse in" align="left">
+    <pre>
+    
+pt1_4: [2019-04-02 11:42:32,805]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:32,885]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行注册模块 密码长度为5位，第4条用例
+[2019-04-02 11:42:32,886]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status': 0, 'code': '20108', 'data': None, 'msg': '密码长度必须为6~18'}
+[2019-04-02 11:42:32,887]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20108', 'data': None, 'msg': '密码长度必须为6~18'}
+[2019-04-02 11:42:32,887]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:用例通过
+[2019-04-02 11:42:32,934]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:32,997]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:32,997]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_5_号码长度为12位</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_5'>通过</button>
+    <div id='div_pt1_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_5'>通过</button>
+    <div id='div_pt1_5' class="collapse in" align="left">
+    <pre>
+    
+pt1_5: [2019-04-02 11:42:32,998]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:33,075]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行注册模块 号码长度为12位，第5条用例
+[2019-04-02 11:42:33,075]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status': 0, 'code': '20109', 'data': None, 'msg': '手机号码格式不正确'}
+[2019-04-02 11:42:33,076]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20109', 'data': None, 'msg': '手机号码格式不正确'}
+[2019-04-02 11:42:33,076]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:用例通过
+[2019-04-02 11:42:33,119]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:33,161]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:33,161]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_6_号码长度为10位</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_6'>通过</button>
+    <div id='div_pt1_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_6'>通过</button>
+    <div id='div_pt1_6' class="collapse in" align="left">
+    <pre>
+    
+pt1_6: [2019-04-02 11:42:33,162]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:33,235]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行注册模块 号码长度为10位，第6条用例
+[2019-04-02 11:42:33,235]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":0,"code":"20109","data":None,"msg":"手机号码格式不正确"}
+[2019-04-02 11:42:33,236]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20109', 'data': None, 'msg': '手机号码格式不正确'}
+[2019-04-02 11:42:33,236]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:用例通过
+[2019-04-02 11:42:33,278]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:33,319]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:33,319]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_7_号码格式不正确</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_7'>通过</button>
+    <div id='div_pt1_7' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_7'>通过</button>
+    <div id='div_pt1_7' class="collapse in" align="left">
+    <pre>
+    
+pt1_7: [2019-04-02 11:42:33,320]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:33,396]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行注册模块 号码格式不正确，第7条用例
+[2019-04-02 11:42:33,397]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":0,"code":"20109","data":None,"msg":"手机号码格式不正确"}
+[2019-04-02 11:42:33,397]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20109', 'data': None, 'msg': '手机号码格式不正确'}
+[2019-04-02 11:42:33,398]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:用例通过
+[2019-04-02 11:42:33,440]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:33,481]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:33,482]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_8_正常注册</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_8'>通过</button>
+    <div id='div_pt1_8' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_8'>通过</button>
+    <div id='div_pt1_8' class="collapse in" align="left">
+    <pre>
+    
+pt1_8: [2019-04-02 11:42:33,482]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:33,560]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行注册模块 正常注册，第8条用例
+[2019-04-02 11:42:33,560]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status': 1, 'code': '10001', 'data': None, 'msg': '注册成功'}
+[2019-04-02 11:42:33,561]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 1, 'code': '10001', 'data': None, 'msg': '注册成功'}
+[2019-04-02 11:42:33,561]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:用例通过
+[2019-04-02 11:42:33,603]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:33,645]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:33,645]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_9_重复注册</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_9' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_9'>通过</button>
+    <div id='div_pt1_9' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_9' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_9'>通过</button>
+    <div id='div_pt1_9' class="collapse in" align="left">
+    <pre>
+    
+pt1_9: [2019-04-02 11:42:33,646]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:33,722]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行注册模块 重复注册，第9条用例
+[2019-04-02 11:42:33,722]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status': 0, 'code': '20110', 'data': None, 'msg': '手机号码已被注册'}
+[2019-04-02 11:42:33,723]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20110', 'data': None, 'msg': '手机号码已被注册'}
+[2019-04-02 11:42:33,723]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:用例通过
+[2019-04-02 11:42:33,772]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:33,817]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:33,818]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_case.test_login.Test_Login</td>
+    <td class="text-center">5</td>
+    <td class="text-center">5</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c2',5)" class="detail" id='c2'>详细</a></td>
+</tr>
+
+<tr id='pt2_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_1_正常登录</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_1'>通过</button>
+    <div id='div_pt2_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_1'>通过</button>
+    <div id='div_pt2_1' class="collapse in" align="left">
+    <pre>
+    
+pt2_1: [2019-04-02 11:42:33,818]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:33,897]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行登录模块 正常登录，第1条用例
+[2019-04-02 11:42:33,899]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status': 1, 'code': '10001', 'data': None, 'msg': '登录成功'}
+[2019-04-02 11:42:33,901]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 1, 'code': '10001', 'data': None, 'msg': '登录成功'}
+[2019-04-02 11:42:33,903]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:用例通过
+[2019-04-02 11:42:33,954]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:33,997]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:33,998]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_2_手机号为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_2'>通过</button>
+    <div id='div_pt2_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_2'>通过</button>
+    <div id='div_pt2_2' class="collapse in" align="left">
+    <pre>
+    
+pt2_2: [2019-04-02 11:42:33,998]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:34,074]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行登录模块 手机号为空，第2条用例
+[2019-04-02 11:42:34,074]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status': 0, 'code': '20103', 'data': None, 'msg': '手机号不能为空'}
+[2019-04-02 11:42:34,074]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20103', 'data': None, 'msg': '手机号不能为空'}
+[2019-04-02 11:42:34,075]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:用例通过
+[2019-04-02 11:42:34,118]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:34,159]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:34,159]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_3_密码为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_3'>通过</button>
+    <div id='div_pt2_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_3'>通过</button>
+    <div id='div_pt2_3' class="collapse in" align="left">
+    <pre>
+    
+pt2_3: [2019-04-02 11:42:34,160]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:34,234]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行登录模块 密码为空，第3条用例
+[2019-04-02 11:42:34,235]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status': 0, 'code': '20103', 'data': None, 'msg': '密码不能为空'}
+[2019-04-02 11:42:34,235]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20103', 'data': None, 'msg': '密码不能为空'}
+[2019-04-02 11:42:34,236]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:用例通过
+[2019-04-02 11:42:34,279]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:34,320]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:34,321]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_4_用户名错误</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_4'>通过</button>
+    <div id='div_pt2_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_4'>通过</button>
+    <div id='div_pt2_4' class="collapse in" align="left">
+    <pre>
+    
+pt2_4: [2019-04-02 11:42:34,321]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:34,394]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行登录模块 用户名错误，第4条用例
+[2019-04-02 11:42:34,395]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status': 0, 'code': '20111', 'data': None, 'msg': '用户名或密码错误'}
+[2019-04-02 11:42:34,395]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20111', 'data': None, 'msg': '用户名或密码错误'}
+[2019-04-02 11:42:34,396]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:用例通过
+[2019-04-02 11:42:34,439]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:34,482]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:34,483]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_5_密码错误</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_5'>通过</button>
+    <div id='div_pt2_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_5'>通过</button>
+    <div id='div_pt2_5' class="collapse in" align="left">
+    <pre>
+    
+pt2_5: [2019-04-02 11:42:34,483]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:34,561]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行登录模块 密码错误，第5条用例
+[2019-04-02 11:42:34,562]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status': 0, 'code': '20111', 'data': None, 'msg': '用户名或密码错误'}
+[2019-04-02 11:42:34,562]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20111', 'data': None, 'msg': '用户名或密码错误'}
+[2019-04-02 11:42:34,563]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:用例通过
+[2019-04-02 11:42:34,603]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:34,645]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:34,646]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_case.test_withdraw.Test_Withdraw</td>
+    <td class="text-center">9</td>
+    <td class="text-center">9</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c3',9)" class="detail" id='c3'>详细</a></td>
+</tr>
+
+<tr id='pt3_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_1_正常登录</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_1'>通过</button>
+    <div id='div_pt3_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_1'>通过</button>
+    <div id='div_pt3_1' class="collapse in" align="left">
+    <pre>
+    
+pt3_1: [2019-04-02 11:42:34,646]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:34,647]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行充值模块 正常登录，第1条用例
+[2019-04-02 11:42:34,729]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":1,"code":"10001","data":None,"msg":"登录成功"}
+[2019-04-02 11:42:34,731]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 1, 'code': '10001', 'data': None, 'msg': '登录成功'}
+[2019-04-02 11:42:34,787]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:34,827]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:34,828]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_2_正常取现</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_2'>通过</button>
+    <div id='div_pt3_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_2'>通过</button>
+    <div id='div_pt3_2' class="collapse in" align="left">
+    <pre>
+    
+pt3_2: [2019-04-02 11:42:34,828]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:35,123]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行充值模块 正常取现，第2条用例
+[2019-04-02 11:42:35,538]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":1,"code":"10001","data":{'id': 1123496, 'regname': '小蜜蜂', 'pwd': 'E10ADC3949BA59ABBE56E057F20F883E', 'mobilephone': '13677885645', 'type': '1', 'leaveamount': '32256.24', 'regtime': '2019-03-11 08:57:09.0'},"msg":"取现成功"}
+[2019-04-02 11:42:35,541]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 1, 'code': '10001', 'data': {'id': 1123496, 'regname': '小蜜蜂', 'pwd': 'E10ADC3949BA59ABBE56E057F20F883E', 'mobilephone': '13677885645', 'leaveamount': '32256.24', 'type': '1', 'regtime': '2019-03-11 08:57:09.0'}, 'msg': '取现成功'}
+[2019-04-02 11:42:35,597]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:35,640]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:35,641]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_3_手机号为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_3'>通过</button>
+    <div id='div_pt3_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_3'>通过</button>
+    <div id='div_pt3_3' class="collapse in" align="left">
+    <pre>
+    
+pt3_3: [2019-04-02 11:42:35,641]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:35,641]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行充值模块 手机号为空，第3条用例
+[2019-04-02 11:42:35,715]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":0,"code":"20103","data":None,"msg":"手机号不能为空"}
+[2019-04-02 11:42:35,715]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20103', 'data': None, 'msg': '手机号不能为空'}
+[2019-04-02 11:42:35,756]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:35,800]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:35,800]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_4_取现金额为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_4'>通过</button>
+    <div id='div_pt3_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_4'>通过</button>
+    <div id='div_pt3_4' class="collapse in" align="left">
+    <pre>
+    
+pt3_4: [2019-04-02 11:42:35,801]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:35,801]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行充值模块 取现金额为空，第4条用例
+[2019-04-02 11:42:35,873]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":0,"code":"20115","data":None,"msg":"请输入金额"}
+[2019-04-02 11:42:35,873]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20115', 'data': None, 'msg': '请输入金额'}
+[2019-04-02 11:42:35,916]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:35,959]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:35,959]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_5_手机号格式不正确</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_5'>通过</button>
+    <div id='div_pt3_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_5'>通过</button>
+    <div id='div_pt3_5' class="collapse in" align="left">
+    <pre>
+    
+pt3_5: [2019-04-02 11:42:35,960]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:35,960]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行充值模块 手机号格式不正确，第5条用例
+[2019-04-02 11:42:36,037]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":0,"code":"20109","data":None,"msg":"手机号码格式不正确"}
+[2019-04-02 11:42:36,039]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20109', 'data': None, 'msg': '手机号码格式不正确'}
+[2019-04-02 11:42:36,095]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:36,137]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:36,138]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_6_取现金额后3位小数</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_6'>通过</button>
+    <div id='div_pt3_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_6'>通过</button>
+    <div id='div_pt3_6' class="collapse in" align="left">
+    <pre>
+    
+pt3_6: [2019-04-02 11:42:36,138]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:36,139]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行充值模块 取现金额后3位小数，第6条用例
+[2019-04-02 11:42:36,213]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":0,"code":"20116","data":None,"msg":"输入金额的金额小数不能超过两位"}
+[2019-04-02 11:42:36,214]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20116', 'data': None, 'msg': '输入金额的金额小数不能超过两位'}
+[2019-04-02 11:42:36,257]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:36,298]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:36,299]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_7_取现金额大于50万</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_7'>通过</button>
+    <div id='div_pt3_7' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_7'>通过</button>
+    <div id='div_pt3_7' class="collapse in" align="left">
+    <pre>
+    
+pt3_7: [2019-04-02 11:42:36,299]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:36,300]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行充值模块 取现金额大于50万，第7条用例
+[2019-04-02 11:42:36,371]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":0,"code":"20117","data":None,"msg":"请输入范围在0到50万之间的正数金额"}
+[2019-04-02 11:42:36,372]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20117', 'data': None, 'msg': '请输入范围在0到50万之间的正数金额'}
+[2019-04-02 11:42:36,415]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:36,475]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:36,476]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_8_取现手机号不是会员</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_8'>通过</button>
+    <div id='div_pt3_8' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_8'>通过</button>
+    <div id='div_pt3_8' class="collapse in" align="left">
+    <pre>
+    
+pt3_8: [2019-04-02 11:42:36,476]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:36,477]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行充值模块 取现手机号不是会员，第8条用例
+[2019-04-02 11:42:36,549]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":1,"code":"20104","data":None,"msg":"此手机号对应的会员不存在"}
+[2019-04-02 11:42:36,550]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 1, 'code': '20104', 'data': None, 'msg': '此手机号对应的会员不存在'}
+[2019-04-02 11:42:36,593]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:36,634]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:36,635]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_9_取现余额不足</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_9' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_9'>通过</button>
+    <div id='div_pt3_9' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_9' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_9'>通过</button>
+    <div id='div_pt3_9' class="collapse in" align="left">
+    <pre>
+    
+pt3_9: [2019-04-02 11:42:36,635]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:36,636]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行充值模块 取现余额不足，第9条用例
+[2019-04-02 11:42:36,710]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":1,"code":"20119","data":None,"msg":"余额不足，请修改提现额度"}
+[2019-04-02 11:42:36,711]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 1, 'code': '20119', 'data': None, 'msg': '余额不足，请修改提现额度'}
+[2019-04-02 11:42:36,754]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:36,795]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:36,795]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_case.test_recharge.Test_Recharge</td>
+    <td class="text-center">8</td>
+    <td class="text-center">8</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c4',8)" class="detail" id='c4'>详细</a></td>
+</tr>
+
+<tr id='pt4_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_1_正常登录</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_1'>通过</button>
+    <div id='div_pt4_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_1'>通过</button>
+    <div id='div_pt4_1' class="collapse in" align="left">
+    <pre>
+    
+pt4_1: [2019-04-02 11:42:36,796]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:36,796]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行充值模块 正常登录，第1条用例
+[2019-04-02 11:42:36,875]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":1,"code":"10001","data":None,"msg":"登录成功"}
+[2019-04-02 11:42:36,876]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 1, 'code': '10001', 'data': None, 'msg': '登录成功'}
+[2019-04-02 11:42:36,918]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:36,960]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:36,960]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_2_正常充值</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_2'>通过</button>
+    <div id='div_pt4_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_2'>通过</button>
+    <div id='div_pt4_2' class="collapse in" align="left">
+    <pre>
+    
+pt4_2: [2019-04-02 11:42:36,961]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:37,261]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行充值模块 正常充值，第2条用例
+32261.24
+[2019-04-02 11:42:37,656]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":1,"code":"10001","data":{'id': 1123496, 'regname': '小蜜蜂', 'pwd': 'E10ADC3949BA59ABBE56E057F20F883E', 'mobilephone': '13677885645', 'type': '1', 'leaveamount': '32261.24', 'regtime': '2019-03-11 08:57:09.0'},"msg":"充值成功"}
+[2019-04-02 11:42:37,658]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 1, 'code': '10001', 'data': {'id': 1123496, 'regname': '小蜜蜂', 'pwd': 'E10ADC3949BA59ABBE56E057F20F883E', 'mobilephone': '13677885645', 'leaveamount': '32261.24', 'type': '1', 'regtime': '2019-03-11 08:57:09.0'}, 'msg': '充值成功'}
+[2019-04-02 11:42:37,700]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:37,742]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:37,743]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_3_手机号为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_3'>通过</button>
+    <div id='div_pt4_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_3'>通过</button>
+    <div id='div_pt4_3' class="collapse in" align="left">
+    <pre>
+    
+pt4_3: [2019-04-02 11:42:37,744]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:37,744]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行充值模块 手机号为空，第3条用例
+[2019-04-02 11:42:37,823]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":0,"code":"20103","data":None,"msg":"手机号不能为空"}
+[2019-04-02 11:42:37,825]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20103', 'data': None, 'msg': '手机号不能为空'}
+[2019-04-02 11:42:37,878]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:37,918]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:37,919]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_4_充值金额为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_4'>通过</button>
+    <div id='div_pt4_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_4'>通过</button>
+    <div id='div_pt4_4' class="collapse in" align="left">
+    <pre>
+    
+pt4_4: [2019-04-02 11:42:37,919]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:37,919]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行充值模块 充值金额为空，第4条用例
+[2019-04-02 11:42:37,994]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":0,"code":"20115","data":None,"msg":"请输入金额"}
+[2019-04-02 11:42:37,995]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20115', 'data': None, 'msg': '请输入金额'}
+[2019-04-02 11:42:38,041]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:38,082]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:38,083]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_5_手机号格式不正确</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_5'>通过</button>
+    <div id='div_pt4_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_5'>通过</button>
+    <div id='div_pt4_5' class="collapse in" align="left">
+    <pre>
+    
+pt4_5: [2019-04-02 11:42:38,083]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:38,084]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行充值模块 手机号格式不正确，第5条用例
+[2019-04-02 11:42:38,158]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":0,"code":"20109","data":None,"msg":"手机号码格式不正确"}
+[2019-04-02 11:42:38,158]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20109', 'data': None, 'msg': '手机号码格式不正确'}
+[2019-04-02 11:42:38,200]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:38,241]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:38,242]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_6_充值金额后3位小数</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_6'>通过</button>
+    <div id='div_pt4_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_6'>通过</button>
+    <div id='div_pt4_6' class="collapse in" align="left">
+    <pre>
+    
+pt4_6: [2019-04-02 11:42:38,242]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:38,243]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行充值模块 充值金额后3位小数，第6条用例
+[2019-04-02 11:42:38,315]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":0,"code":"20116","data":None,"msg":"输入金额的金额小数不能超过两位"}
+[2019-04-02 11:42:38,315]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20116', 'data': None, 'msg': '输入金额的金额小数不能超过两位'}
+[2019-04-02 11:42:38,359]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:38,399]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:38,399]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_7_充值金额大于50万</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_7'>通过</button>
+    <div id='div_pt4_7' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_7'>通过</button>
+    <div id='div_pt4_7' class="collapse in" align="left">
+    <pre>
+    
+pt4_7: [2019-04-02 11:42:38,400]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:38,400]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行充值模块 充值金额大于50万，第7条用例
+[2019-04-02 11:42:38,471]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":0,"code":"20117","data":None,"msg":"请输入范围在0到50万之间的正数金额"}
+[2019-04-02 11:42:38,471]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20117', 'data': None, 'msg': '请输入范围在0到50万之间的正数金额'}
+[2019-04-02 11:42:38,512]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:38,554]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:38,554]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_8_充值手机号不是会员</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_8'>通过</button>
+    <div id='div_pt4_8' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_8'>通过</button>
+    <div id='div_pt4_8' class="collapse in" align="left">
+    <pre>
+    
+pt4_8: [2019-04-02 11:42:38,555]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:38,555]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行充值模块 充值手机号不是会员，第8条用例
+[2019-04-02 11:42:38,630]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":0,"code":"20104","data":None,"msg":"此手机号对应的会员不存在"}
+[2019-04-02 11:42:38,631]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20104', 'data': None, 'msg': '此手机号对应的会员不存在'}
+[2019-04-02 11:42:38,675]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:38,717]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:38,718]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='failClass warning'>
+    <td>test_case.test_add_loan.Test_Add_Loan</td>
+    <td class="text-center">16</td>
+    <td class="text-center">15</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c5',16)" class="detail" id='c5'>详细</a></td>
+</tr>
+
+<tr id='pt5_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_01_正常登录</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_1'>通过</button>
+    <div id='div_pt5_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_1'>通过</button>
+    <div id='div_pt5_1' class="collapse in" align="left">
+    <pre>
+    
+pt5_1: [2019-04-02 11:42:38,718]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:39,023]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行加标模块 正常登录，第1条用例
+[2019-04-02 11:42:39,100]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status':1,'code':'10001','data': None,'msg':'登录成功'}
+[2019-04-02 11:42:39,101]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 1, 'code': '10001', 'data': None, 'msg': '登录成功'}
+[2019-04-02 11:42:39,142]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:39,186]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:39,186]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_02_加标成功</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_2'>通过</button>
+    <div id='div_pt5_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_2'>通过</button>
+    <div id='div_pt5_2' class="collapse in" align="left">
+    <pre>
+    
+pt5_2: [2019-04-02 11:42:39,187]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:39,187]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行加标模块 加标成功，第2条用例
+[2019-04-02 11:42:39,558]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status':1,'code':'10001','data': None,'msg':'加标成功'}
+[2019-04-02 11:42:39,561]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 1, 'code': '10001', 'data': None, 'msg': '加标成功'}
+[2019-04-02 11:42:39,619]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:39,662]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:39,663]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_03_用户id为小数</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_3'>通过</button>
+    <div id='div_pt5_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_3'>通过</button>
+    <div id='div_pt5_3' class="collapse in" align="left">
+    <pre>
+    
+pt5_3: [2019-04-02 11:42:39,663]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:39,664]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行加标模块 用户id为小数，第3条用例
+[2019-04-02 11:42:39,741]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status':0,'code':'20109','data': None,'msg':'请根据数值参数的类型对应输入合法的数字'}
+[2019-04-02 11:42:39,742]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20109', 'data': None, 'msg': '请根据数值参数的类型对应输入合法的数字'}
+[2019-04-02 11:42:39,785]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:39,825]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:39,826]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_04_不存在的会员</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_4'>通过</button>
+    <div id='div_pt5_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_4'>通过</button>
+    <div id='div_pt5_4' class="collapse in" align="left">
+    <pre>
+    
+pt5_4: [2019-04-02 11:42:39,826]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:39,827]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行加标模块 不存在的会员，第4条用例
+[2019-04-02 11:42:39,907]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status':0,'code':'20105','data': None,'msg':'不存在该会员'}
+[2019-04-02 11:42:39,908]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20105', 'data': None, 'msg': '不存在该会员'}
+[2019-04-02 11:42:39,951]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:39,992]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:39,993]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_05_借款金额为1</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_5'>通过</button>
+    <div id='div_pt5_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_5'>通过</button>
+    <div id='div_pt5_5' class="collapse in" align="left">
+    <pre>
+    
+pt5_5: [2019-04-02 11:42:39,993]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:39,994]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行加标模块 借款金额为1，第5条用例
+[2019-04-02 11:42:40,073]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status':0,'code':'20106','data': None,'msg':'参数错误：借款金额amount必须为大于1000并能被100整除的正整数'}
+[2019-04-02 11:42:40,074]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20106', 'data': None, 'msg': '参数错误：借款金额amount必须为大于1000并能被100整除的正整数'}
+[2019-04-02 11:42:40,115]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:40,156]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:40,157]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_06_借款金额为1001</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_6'>通过</button>
+    <div id='div_pt5_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_6'>通过</button>
+    <div id='div_pt5_6' class="collapse in" align="left">
+    <pre>
+    
+pt5_6: [2019-04-02 11:42:40,158]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:40,159]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行加标模块 借款金额为1001，第6条用例
+[2019-04-02 11:42:40,238]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status':0,'code':'20106','data': None,'msg':'参数错误：借款金额amount必须为大于1000并能被100整除的正整数'}
+[2019-04-02 11:42:40,240]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20106', 'data': None, 'msg': '参数错误：借款金额amount必须为大于1000并能被100整除的正整数'}
+[2019-04-02 11:42:40,295]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:40,336]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:40,337]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_07_利率为0</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_7'>通过</button>
+    <div id='div_pt5_7' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_7'>通过</button>
+    <div id='div_pt5_7' class="collapse in" align="left">
+    <pre>
+    
+pt5_7: [2019-04-02 11:42:40,337]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:40,338]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行加标模块 利率为0，第7条用例
+[2019-04-02 11:42:40,412]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status':0,'code':'20107','data': None,'msg':'参数错误：借款利率loanRate值必须大于0小于或等于24'}
+[2019-04-02 11:42:40,413]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20107', 'data': None, 'msg': '参数错误：借款利率loanRate值必须大于0小于或等于24'}
+[2019-04-02 11:42:40,456]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:40,517]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:40,518]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_08_利率为25</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_8'>通过</button>
+    <div id='div_pt5_8' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_8'>通过</button>
+    <div id='div_pt5_8' class="collapse in" align="left">
+    <pre>
+    
+pt5_8: [2019-04-02 11:42:40,518]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:40,519]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行加标模块 利率为25，第8条用例
+[2019-04-02 11:42:40,598]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status':0,'code':'20107','data': None,'msg':'参数错误：借款利率loanRate值必须大于0小于或等于24'}
+[2019-04-02 11:42:40,601]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20107', 'data': None, 'msg': '参数错误：借款利率loanRate值必须大于0小于或等于24'}
+[2019-04-02 11:42:40,648]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:40,690]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:40,691]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_09_借款日期类型为1</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_9' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_9'>通过</button>
+    <div id='div_pt5_9' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_9' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_9'>通过</button>
+    <div id='div_pt5_9' class="collapse in" align="left">
+    <pre>
+    
+pt5_9: [2019-04-02 11:42:40,691]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:40,692]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行加标模块 借款日期类型为1，第9条用例
+[2019-04-02 11:42:40,774]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status':0,'code':'20108','data': None,'msg':'参数错误：借款日期类型loanDateType只能为0,2,4'}
+[2019-04-02 11:42:40,774]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20108', 'data': None, 'msg': '参数错误：借款日期类型loanDateType只能为0,2,4'}
+[2019-04-02 11:42:40,818]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:40,858]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:40,859]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_10_标题参数为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_10' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_10'>通过</button>
+    <div id='div_pt5_10' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_10' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_10'>通过</button>
+    <div id='div_pt5_10' class="collapse in" align="left">
+    <pre>
+    
+pt5_10: [2019-04-02 11:42:40,859]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:40,860]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行加标模块 标题参数为空，第10条用例
+[2019-04-02 11:42:40,934]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status':0,'code':'20103','data': None,'msg':'所有参数不能为空'}
+[2019-04-02 11:42:40,934]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20103', 'data': None, 'msg': '所有参数不能为空'}
+[2019-04-02 11:42:40,978]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:41,020]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:41,020]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_11_修改1状态状态</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_11' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_11'>通过</button>
+    <div id='div_pt5_11' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_11' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_11'>通过</button>
+    <div id='div_pt5_11' class="collapse in" align="left">
+    <pre>
+    
+pt5_11: [2019-04-02 11:42:41,021]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:41,021]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行加标模块 修改1状态状态，第11条用例
+[2019-04-02 11:42:41,104]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":0,"code":"20207","data":None,"msg":"修改失败，当前标已经是该状态"}
+[2019-04-02 11:42:41,105]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20207', 'data': None, 'msg': '修改失败，当前标已经是该状态'}
+[2019-04-02 11:42:41,147]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:41,189]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:41,190]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_12_审核到4状态成功</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_12' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_12'>通过</button>
+    <div id='div_pt5_12' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_12' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_12'>通过</button>
+    <div id='div_pt5_12' class="collapse in" align="left">
+    <pre>
+    
+pt5_12: [2019-04-02 11:42:41,190]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:41,191]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行加标模块 审核到4状态成功，第12条用例
+[2019-04-02 11:42:41,268]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":1,"code":"10001","data":None,"msg":"更新状态成功：竞标开始，当前标为竞标中状态"}
+[2019-04-02 11:42:41,269]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 1, 'code': '10001', 'data': None, 'msg': '更新状态成功：竞标开始，当前标为竞标中状态'}
+[2019-04-02 11:42:41,311]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:41,353]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:41,354]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_13_直接更新成还款状态</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_13' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_13'>通过</button>
+    <div id='div_pt5_13' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_13' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_13'>通过</button>
+    <div id='div_pt5_13' class="collapse in" align="left">
+    <pre>
+    
+pt5_13: [2019-04-02 11:42:41,354]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:41,355]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行加标模块 直接更新成还款状态，第13条用例
+[2019-04-02 11:42:41,431]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":0,"code":"20210","data":None,"msg":"不允许直接更新项目到还款中状态，请执行生成回款计划"}
+[2019-04-02 11:42:41,431]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20210', 'data': None, 'msg': '不允许直接更新项目到还款中状态，请执行生成回款计划'}
+[2019-04-02 11:42:41,473]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:41,514]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:41,514]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_14' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_14_非法状态值</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_14' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_14'>通过</button>
+    <div id='div_pt5_14' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_14' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_14'>通过</button>
+    <div id='div_pt5_14' class="collapse in" align="left">
+    <pre>
+    
+pt5_14: [2019-04-02 11:42:41,514]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:41,515]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行加标模块 非法状态值，第14条用例
+[2019-04-02 11:42:41,587]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":0,"code":"20205","data":None,"msg":"参数错误：非法status参数，状态值1-11"}
+[2019-04-02 11:42:41,588]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20205', 'data': None, 'msg': '参数错误：非法status参数，状态值1-11'}
+[2019-04-02 11:42:41,632]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:41,675]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:41,675]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_15' class='none'>
+    <td class='failCase'><div class='testcase'>test_case_15_不存在的标</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_15' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_15'>失败</button>
+    <div id='div_ft5_15' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_15' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_15'>失败</button>
+    <div id='div_ft5_15' class="collapse in" align="left">
+    <pre>
+    
+ft5_15: [2019-04-02 11:42:41,676]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:41,676]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行加标模块 不存在的标，第15条用例
+[2019-04-02 11:42:41,749]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":0,"code":"20204","data":None,"msg":"参数错误：错误的标id 值"}
+[2019-04-02 11:42:41,749]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 1, 'code': '20206', 'data': None, 'msg': '不存在该项目'}
+[2019-04-02 11:42:41,751]-[ERROR]-[my_log.py]-[妖嗜]-[日志信息]:断言出错{'status': 1, 'code': '20206', 'data': None, 'msg': '不存在该项目'} != {'status': 0, 'code': '20204', 'data': None, 'msg': '参数错误：错误的标id 值'}
+- {'code': '20206', 'data': None, 'msg': '不存在该项目', 'status': 1}
+?               ^                         ^^^^^^             ^
+
++ {'code': '20204', 'data': None, 'msg': '参数错误：错误的标id 值', 'status': 0}
+?               ^                         ^^^^^^^^^^^^^             ^
+
+[2019-04-02 11:42:41,751]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:{'id': 333, 'status': 5}
+[2019-04-02 11:42:41,797]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:41,838]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:41,838]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+Traceback (most recent call last):
+  File "E:\python练习\python_14\Python接口项目实战\InterfaceTest\common\public\my_ddt.py", line 150, in wrapper
+    return func(self, *args, **kwargs)
+  File "E:\python练习\python_14\Python接口项目实战\InterfaceTest\test_case\test_add_loan.py", line 53, in test_case
+    raise e
+  File "E:\python练习\python_14\Python接口项目实战\InterfaceTest\test_case\test_add_loan.py", line 47, in test_case
+    self.assertEqual(resp.json(),eval(expected_result))#进行断言比对
+AssertionError: {'status': 1, 'code': '20206', 'data': None, 'msg': '不存在该项目'} != {'status': 0, 'code': '20204', 'data': None, 'msg': '参数错误：错误的标id 值'}
+- {'code': '20206', 'data': None, 'msg': '不存在该项目', 'status': 1}
+?               ^                         ^^^^^^             ^
+
++ {'code': '20204', 'data': None, 'msg': '参数错误：错误的标id 值', 'status': 0}
+?               ^                         ^^^^^^^^^^^^^             ^
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_16' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_16_标id为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_16' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_16'>通过</button>
+    <div id='div_pt5_16' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_16' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_16'>通过</button>
+    <div id='div_pt5_16' class="collapse in" align="left">
+    <pre>
+    
+pt5_16: [2019-04-02 11:42:41,840]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:41,840]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行加标模块 标id为空，第16条用例
+[2019-04-02 11:42:41,914]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":0,"code":"20203","data":None,"msg":"参数错误：所有参数不能为空"}
+[2019-04-02 11:42:41,915]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '20203', 'data': None, 'msg': '参数错误：所有参数不能为空'}
+[2019-04-02 11:42:41,958]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:41,998]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:41,998]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='failClass warning'>
+    <td>test_case.test_invest.Test_Invest</td>
+    <td class="text-center">6</td>
+    <td class="text-center">5</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c6',6)" class="detail" id='c6'>详细</a></td>
+</tr>
+
+<tr id='pt6_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_1_正常登录</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt6_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt6_1'>通过</button>
+    <div id='div_pt6_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt6_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt6_1'>通过</button>
+    <div id='div_pt6_1' class="collapse in" align="left">
+    <pre>
+    
+pt6_1: [2019-04-02 11:42:41,999]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:42,381]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行投资模块 正常登录，第1条用例
+[2019-04-02 11:42:42,382]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status':1,'code':'10001','data': None,'msg':'登录成功'}
+[2019-04-02 11:42:42,383]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 1, 'code': '10001', 'data': None, 'msg': '登录成功'}
+[2019-04-02 11:42:42,429]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:42,471]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:42,471]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt6_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_2_正常投资</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt6_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt6_2'>通过</button>
+    <div id='div_pt6_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt6_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt6_2'>通过</button>
+    <div id='div_pt6_2' class="collapse in" align="left">
+    <pre>
+    
+pt6_2: [2019-04-02 11:42:42,472]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:42,852]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行投资模块 正常投资，第2条用例
+[2019-04-02 11:42:43,155]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status':1,'code':'10001','data': None,'msg':'竞标成功'}
+[2019-04-02 11:42:43,157]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 1, 'code': '10001', 'data': None, 'msg': '竞标成功'}
+[2019-04-02 11:42:43,198]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:43,239]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:43,240]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt6_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_3_不输入金额</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt6_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt6_3'>通过</button>
+    <div id='div_pt6_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt6_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt6_3'>通过</button>
+    <div id='div_pt6_3' class="collapse in" align="left">
+    <pre>
+    
+pt6_3: [2019-04-02 11:42:43,241]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:43,320]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行投资模块 不输入金额，第3条用例
+[2019-04-02 11:42:43,322]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{'status':0,'code':'11003','data': None,'msg':'参数错误:所有参数都不能为空'}
+[2019-04-02 11:42:43,324]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '11003', 'data': None, 'msg': '参数错误:所有参数都不能为空'}
+[2019-04-02 11:42:43,373]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:43,430]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:43,431]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt6_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_4_用户id小数</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt6_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt6_4'>通过</button>
+    <div id='div_pt6_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt6_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt6_4'>通过</button>
+    <div id='div_pt6_4' class="collapse in" align="left">
+    <pre>
+    
+pt6_4: [2019-04-02 11:42:43,431]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:43,505]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行投资模块 用户id小数，第4条用例
+[2019-04-02 11:42:43,506]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":0,"code":"11013","data":None,"msg":"请根据数值参数的类型对应输入合法的数字"}
+[2019-04-02 11:42:43,507]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '11013', 'data': None, 'msg': '请根据数值参数的类型对应输入合法的数字'}
+[2019-04-02 11:42:43,558]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:43,608]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:43,609]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft6_5' class='none'>
+    <td class='failCase'><div class='testcase'>test_case_5_密码长度错误</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft6_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft6_5'>失败</button>
+    <div id='div_ft6_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft6_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft6_5'>失败</button>
+    <div id='div_ft6_5' class="collapse in" align="left">
+    <pre>
+    
+ft6_5: [2019-04-02 11:42:43,609]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:43,689]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行投资模块 密码长度错误，第5条用例
+[2019-04-02 11:42:43,690]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":0,"code":"11006","data":None,"msg":"密码错误"}
+[2019-04-02 11:42:43,690]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '', 'data': None, 'msg': '密码错误'}
+[2019-04-02 11:42:43,691]-[ERROR]-[my_log.py]-[妖嗜]-[日志信息]:断言出错{'status': 0, 'code': '', 'data': None, 'msg': '密码错误'} != {'status': 0, 'code': '11006', 'data': None, 'msg': '密码错误'}
+- {'code': '', 'data': None, 'msg': '密码错误', 'status': 0}
++ {'code': '11006', 'data': None, 'msg': '密码错误', 'status': 0}
+?           +++++
+
+[2019-04-02 11:42:43,692]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:{'memberId': '1123888', 'password': '123456999999', 'loanId': 17527, 'amount': 100}
+[2019-04-02 11:42:43,745]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:43,793]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:43,794]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+Traceback (most recent call last):
+  File "E:\python练习\python_14\Python接口项目实战\InterfaceTest\common\public\my_ddt.py", line 150, in wrapper
+    return func(self, *args, **kwargs)
+  File "E:\python练习\python_14\Python接口项目实战\InterfaceTest\test_case\test_invest.py", line 67, in test_case
+    raise e
+  File "E:\python练习\python_14\Python接口项目实战\InterfaceTest\test_case\test_invest.py", line 57, in test_case
+    self.assertEqual(resp.json(), eval(expected_result))  # 进行断言比对
+AssertionError: {'status': 0, 'code': '', 'data': None, 'msg': '密码错误'} != {'status': 0, 'code': '11006', 'data': None, 'msg': '密码错误'}
+- {'code': '', 'data': None, 'msg': '密码错误', 'status': 0}
++ {'code': '11006', 'data': None, 'msg': '密码错误', 'status': 0}
+?           +++++
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt6_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_case_6_投资金额为小数</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt6_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt6_6'>通过</button>
+    <div id='div_pt6_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt6_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt6_6'>通过</button>
+    <div id='div_pt6_6' class="collapse in" align="left">
+    <pre>
+    
+pt6_6: [2019-04-02 11:42:43,795]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******开始执行******
+[2019-04-02 11:42:43,863]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:正在执行投资模块 投资金额为小数，第6条用例
+[2019-04-02 11:42:43,863]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:预期结果{"status":0,"code":"11007","data":None,"msg":"参数错误，投资金额必须是能被100整除的正整数"}
+[2019-04-02 11:42:43,864]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:实际结果{'status': 0, 'code': '11007', 'data': None, 'msg': '参数错误，投资金额必须是能被100整除的正整数'}
+[2019-04-02 11:42:43,916]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:43,964]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:成功写入
+[2019-04-02 11:42:43,965]-[INFO]-[my_log.py]-[妖嗜]-[日志信息]:******执行结束******
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='total_row' class="text-center active">
+    <td>总计</td>
+    <td>53</td>
+    <td>51</td>
+    <td>2</td>
+    <td>0</td>
+    <td>通过率：96.23%</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+    <div style=" position:fixed;right:50px; bottom:30px; width:20px; height:20px;cursor:pointer">
+    <a href="#"><span class="glyphicon glyphicon-eject" style = "font-size:30px;" aria-hidden="true">
+    </span></a></div>
+    
+</body>
+</html>

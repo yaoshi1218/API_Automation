@@ -1,23 +1,26 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2019/3/19 10:30
 # @File    : test_withdraw.py
-from Python接口项目实战.InterfaceTest.test_case import *
-from Python接口项目实战.InterfaceTest.test_case.get_data import GetData
+from test_case import *
+from test_case.get_data import GetData
 
 @ddt
-class Test_Withdraw(unittest.TestCase):#取现模块
-    log=MyLog()
-    http=HttpRequest()
-    wb=DoExcel(test_case_path,'withdraw')
+class Test_Withdraw(unittest.TestCase):  # 取现模块
+    log = MyLog()
+    http = HttpRequest()
+    wb = DoExcel(test_case_path, 'withdraw')
     cases=wb.read_excel()
-    #读取recharge表单文件
+    # 读取recharge表单文件
+
     def setUp(self):
         self.log.info('******开始执行******')
+
     def tearDown(self):
         self.log.info('******执行结束******')
+
     @data(*cases)
-    def test_case(self,case):
-        #取现
+    def test_case(self, case):
+        # 取现
         method = case['method']
         url = getattr(get_data.GetData, 'url') + case['url']
         params = case['params']
@@ -69,4 +72,4 @@ class Test_Withdraw(unittest.TestCase):#取现模块
 
 
 if __name__ == '__main__':
-    unittest.main()#自动加载test开头的数据
+    unittest.main()  # 自动加载test开头的数据

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2019/3/12 9:08
 # @File    : my_log.py
-import logging
+import logging,datetime
 from common.public.my_config import ReadConfig
 from common.public.project_path import *   # 引用test_log路径
 
@@ -13,7 +13,8 @@ class MyLog:
     format = config.read_str('My_Log', 'format')  # 输出格式
     my_logger = config.read_str('My_Log', 'my_logger')  # 日志收集器的名称
     my_logger_lv = config.read_str('My_Log', 'my_logger_lv')  # 日志收集器等级
-    log_file_name = config.read_str('My_Log', 'log_file_name')  # 日志文件名称
+    # log_file_name = config.read_str('My_Log', 'log_file_name')  # 日志文件名称
+    log_file_name = datetime.datetime.now().strftime("%Y%m%d")+ '.log'  # 日志文件名称
     ch_lv = config.read_str('My_Log', 'ch_lv')  # 控制台输出等级
     fh_lv = config.read_str('My_Log', 'fh_lv')  # 文本输出等级
     '''这是一个日志类'''
